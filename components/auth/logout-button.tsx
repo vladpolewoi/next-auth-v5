@@ -1,7 +1,6 @@
 "use client"
 
-import { signOut } from "@/auth"
-import { Span } from "next/dist/trace"
+import { logout } from "@/actions/logout"
 
 interface LogoutButtonProps {
 	children?: React.ReactNode
@@ -9,7 +8,7 @@ interface LogoutButtonProps {
 
 export const LogoutButton = ({ children }: LogoutButtonProps) => {
 	const onClick = async () => {
-		signOut()
+		logout()
 	}
 
 	return (
