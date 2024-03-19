@@ -7,6 +7,7 @@ import {
 	apiAuthPrefix,
 	authRoutes,
 } from "@/routes"
+import next from "next"
 
 const { auth } = NextAuth(authConfig)
 
@@ -19,7 +20,7 @@ export default auth((req) => {
 	const isAuthRoute = authRoutes.includes(nextUrl.pathname)
 
 	if (isApiAuthRoute) {
-		return null
+		return
 	}
 
 	if (isAuthRoute) {
@@ -29,14 +30,26 @@ export default auth((req) => {
 			)
 		}
 
-		return null
+		return
 	}
 
 	if (!isLoggedIn && !isPublicRoute) {
-		return Response.redirect(new URL("/auth/login", nextUrl.toString()))
+		let callbackUrl = nextUrl.pathname
+		if (nextUrl.search) {
+			callbackUrl += nextUrl.search
+		}
+
+		const encodedCallbackUrl = encodeURIComponent(callbackUrl)
+
+		return Response.redirect(
+			new URL(
+				`/auth/login?callbackUrl=${encodedCallbackUrl}`,
+				nextUrl.toString()
+			)
+		)
 	}
 
-	return null
+	return
 })
 
 // Optionally, don't invoke Middleware on some paths

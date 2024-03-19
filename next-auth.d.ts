@@ -7,6 +7,7 @@ declare module "next-auth" {
 		role: UserRole
 		name: string
 		email: string
+		image?: string
 		isTwoFactorEnabled: boolean
 		isOAuth: boolean
 	}
@@ -16,6 +17,7 @@ declare module "next-auth" {
 			role: UserRole
 			name: string
 			email: string
+			image?: string
 			isTwoFactorEnabled: boolean
 			isOAuth: boolean
 		}

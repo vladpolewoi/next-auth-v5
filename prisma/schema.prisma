@@ -25,6 +25,7 @@ model User {
   accounts      Account[]
 
   isTwoFactorEnabled    Boolean                @default(false)
+  isOAuth               Boolean                @default(false)
   TwoFactorConfirmation TwoFactorConfirmation?
 }
 
